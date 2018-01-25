@@ -1,9 +1,14 @@
-package denglj.learn.springboot.rest;
+package denglj.learn.springboot.sys;
 
-public class Result {
+public class RestResult {
     private String code;
     private String msg;
-    public Result(String code, String msg){
+
+    public RestResult(){
+
+    }
+
+    public RestResult(String code, String msg){
         this.code = code;
         this.msg = msg;
     }

@@ -13,8 +13,4 @@ public class GreetingController {
         return new Greeting(counter.incrementAndGet(), String.format(template, name));
     }
 
-    @RequestMapping(value="/receiveMessage", method = RequestMethod.POST)
-    public Result receiveMessage(@RequestBody Product product){
-        return new Result("11", "success");
-    }
 }
