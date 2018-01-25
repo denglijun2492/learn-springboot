@@ -1,21 +1,27 @@
 package denglj.learn.springboot.product.controller;
 
-import denglj.learn.springboot.product.domain.Product;
-import denglj.learn.springboot.product.domain.ProductMapper;
+import com.github.pagehelper.PageInfo;
+import denglj.learn.springboot.product.mapper.ProductMapper;
+import denglj.learn.springboot.product.model.Product;
+import denglj.learn.springboot.product.service.ProductService;
 import denglj.learn.springboot.sys.RestResult;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping(value = "/product")
 public class ProductController {
     @Autowired
-    private ProductMapper productMapper;
-    @RequestMapping(value = "/product", method = RequestMethod.POST)
+    private ProductService productService;
+    @RequestMapping(value = "/save")
     public RestResult save(@RequestBody Product product){
-        productMapper.insert(product.getId(), product.getName(), product.getAddress());
-        return new RestResult("11","success");
+        productService.addProduct(product);
+        return new RestResult("00","success");
+    }
+
+    @RequestMapping(value = "/find")
+    public PageInfo<Product> find(@RequestParam(name = "pageNum") int pageNum, @RequestParam(name = "pageSize") int PageSize){
+        PageInfo<Product> r = productService.findAllProduct(pageNum, PageSize);
+        return r;
     }
 }

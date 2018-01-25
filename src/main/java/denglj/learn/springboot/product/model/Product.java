@@ -1,10 +1,16 @@
-package denglj.learn.springboot.product.domain;
+package denglj.learn.springboot.product.model;
+
+import java.math.BigDecimal;
 
 public class Product {
     private Integer id;
+
     private String name;
-    private Double price;
-    private String desc;
+
+    private BigDecimal price;
+
+    private String descr;
+
     private String address;
 
     public Integer getId() {
@@ -20,23 +26,23 @@ public class Product {
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.name = name == null ? null : name.trim();
     }
 
-    public Double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(Double price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
-    public String getDesc() {
-        return desc;
+    public String getDescr() {
+        return descr;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setDescr(String descr) {
+        this.descr = descr == null ? null : descr.trim();
     }
 
     public String getAddress() {
@@ -44,6 +50,6 @@ public class Product {
     }
 
     public void setAddress(String address) {
-        this.address = address;
+        this.address = address == null ? null : address.trim();
     }
 }
