@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>状态示例</title>
+    <script src="/react/react.production.min.js"></script>
+    <script src="/react/react-dom.production.min.js"></script>
+    <script src="https://cdn.bootcss.com/babel-standalone/6.22.1/babel.min.js"></script>
+</head>
+<body>
+    <div id="example"></div>
+    <script type="text/babel">
+        class Clock extends React.Component{
+            constructor(props){
+                super(props);
+                this.state = {date : new Date()};
+            }
+
+            /**
+             * 组件装载
+             */
+            componentDidMount(){
+                this.timerId = setInterval(()=>this.tick(), 1000)
+            }
+
+            /**
+             * 组件卸载
+             */
+            componentWillUnmount(){
+                clearInterval(this.timerId);
+            }
+            tick(){
+                this.setState({
+                    date : new Date()
+                });
+            }
+            render(){
+                return (
+                        <div>
+                            <h1>hello world!</h1>
+                            <h2>it's time is {this.state.date.toLocaleTimeString()}.</h2>
+                        </div>
+                );
+            }
+        };
+
+        ReactDOM.render(
+                <Clock/>,
+            document.getElementById('example')
+        );
+    </script>
+</body>
+</html>
