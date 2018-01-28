@@ -25,7 +25,23 @@ export default {
           page : data.pageNum
         }
       });
-    }
+    },
+    *create({ payload: values }, { call, put }) {
+      yield call(productService.create, values);
+      yield put({ type: 'reload' });
+    },
+    *update({ payload: {id, values} }, { call, put }) {
+      yield call(productService.update, id, values);
+      yield put({ type: 'reload' });
+    },
+    *remove({ payload: id }, { call, put }) {
+      yield call(productService.remove, id);
+      yield put({ type: 'reload' });
+    },
+    *reload(action, { put, select }) {
+      const page = yield select(state => state.products.page);
+      yield put({ type: 'find', payload: { page } });
+    },
   },
   subscriptions : {
     setup({dispatch, history}){
