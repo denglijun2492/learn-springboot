@@ -13,11 +13,39 @@ import java.util.List;
 public class ProductService {
     @Autowired
     private ProductMapper productMapper;
-    public int addProduct(Product product){
+
+    /**
+     * 新增产品信息
+     * @param product
+     * @return
+     */
+    public int saveProduct(Product product){
         return productMapper.insertSelective(product);
     }
 
-    public PageInfo<Product> findAllProduct(int pageNum, int pageSize){
+    /**
+     * 修改
+     * @param product
+     */
+    public void updateProduct(Product product){
+        productMapper.updateByPrimaryKeySelective(product);
+    }
+
+    /**
+     * 删除
+     * @param id
+     */
+    public void deleteProduct(int id){
+        productMapper.deleteByPrimaryKey(id);
+    }
+
+    /**
+     * 分页查询
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    public PageInfo<Product> findProductPage(int pageNum, int pageSize){
         PageHelper.startPage(pageNum, pageSize);
         List<Product> lst = productMapper.selectAllProduct();
         PageInfo<Product> result = new PageInfo<>(lst);

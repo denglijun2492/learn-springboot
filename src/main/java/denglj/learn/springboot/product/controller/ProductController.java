@@ -13,15 +13,29 @@ import org.springframework.web.bind.annotation.*;
 public class ProductController {
     @Autowired
     private ProductService productService;
-    @RequestMapping(value = "/save")
-    public RestResult save(@RequestBody Product product){
-        productService.addProduct(product);
-        return new RestResult("00","success");
+
+    @RequestMapping(method = RequestMethod.POST, produces = {"application/json;charset=UTF-8"})
+    public void add(@RequestBody Product product){
+        productService.saveProduct(product);
     }
 
-    @RequestMapping(value = "/find")
-    public PageInfo<Product> find(@RequestParam(name = "pageNum") int pageNum, @RequestParam(name = "pageSize") int PageSize){
-        PageInfo<Product> r = productService.findAllProduct(pageNum, PageSize);
-        return r;
+    @RequestMapping(value ="/{id}", method = RequestMethod.PUT, produces = {"application/json;charset=UTF-8"})
+    public void update(@PathVariable("id") Integer id, @RequestBody Product product){
+        product.setId(id);
+        productService.updateProduct(product);
     }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public void delete(@PathVariable("id") Integer id){
+        productService.deleteProduct(id);
+    }
+
+    @RequestMapping(method = RequestMethod.GET)
+    public PageInfo<Product> list(@RequestParam(name = "pageNum") int pageNum,
+                                  @RequestParam(name = "pageSize") int PageSize){
+        PageInfo<Product> p = productService.findProductPage(pageNum, PageSize);
+        return p;
+    }
+
+
 }

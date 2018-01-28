@@ -9,7 +9,7 @@
     <result column="address" property="address" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, name, price, 'descr', address
+    id, name, price, descr, address
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -79,7 +79,7 @@
         price = #{price,jdbcType=DECIMAL},
       </if>
       <if test="descr != null" >
-        descr = #{desc,jdbcType=VARCHAR},
+        descr = #{descr,jdbcType=VARCHAR},
       </if>
       <if test="address != null" >
         address = #{address,jdbcType=VARCHAR},
